@@ -1,3 +1,4 @@
+import pathlib
 from argparse import ArgumentParser
 from pathlib import Path
 import pandas
@@ -8,6 +9,7 @@ import cv2
 from ultralytics.yolo.utils.checks import check_imgsz
 from ultralytics.yolo.data.augment import classify_transforms
 from ultralytics.yolo.utils.torch_utils import select_device
+from pathlib import Path
 
 IMG_FORMATS = 'bmp', 'dng', 'jpeg', 'jpg', 'mpo', 'png', 'tif', 'tiff', 'webp', 'pfm', 'dcm'
 
@@ -215,7 +217,7 @@ if __name__ == "__main__":
         print("sorry the value entered is not some string")
 
     cfg = DEFAULT_CFG
-    model = 'D:/IAAA/ultralytics/yolo/v8/classify/IAAA/126/weights/best.pt'
+    model = Path(str(__file__)).parent/'ultralytics/yolo/v8/classify/IAAA/126/weights/best.pt'
     source = input
     project = cfg.project or "project_name"
     name = cfg.name or "project_name"
