@@ -18,7 +18,6 @@ from typing import Union
 import cv2
 import numpy as np
 import torch
-import yaml
 
 from ultralytics import __version__
 
@@ -30,7 +29,8 @@ WORLD_SIZE = int(os.getenv('WORLD_SIZE', 1))
 # Other Constants
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[2]  # YOLO
-DEFAULT_CFG_PATH = ROOT / 'yolo/cfg/default.yaml'
+# DEFAULT_CFG_PATH = ROOT / 'yolo/cfg/default.yaml'
+DEFAULT_CFG_PATH = ROOT / 'yolo/cfg/default.pt'  # TODO: changed
 NUM_THREADS = min(8, max(1, os.cpu_count() - 1))  # number of YOLOv5 multiprocessing threads
 AUTOINSTALL = str(os.getenv('YOLO_AUTOINSTALL', True)).lower() == 'true'  # global auto-install mode
 VERBOSE = str(os.getenv('YOLO_VERBOSE', True)).lower() == 'true'  # global verbose mode
@@ -211,6 +211,7 @@ def yaml_save(file='data.yaml', data=None):
 
     with open(file, 'w') as f:
         # Dump data to file in YAML format, converting Path objects to strings
+        import yaml
         yaml.safe_dump({k: str(v) if isinstance(v, Path) else v
                         for k, v in data.items()},
                        f,
@@ -237,6 +238,7 @@ def yaml_load(file='data.yaml', append_filename=False):
             s = re.sub(r'[^\x09\x0A\x0D\x20-\x7E\x85\xA0-\uD7FF\uE000-\uFFFD\U00010000-\U0010ffff]+', '', s)
 
         # Add YAML filename to dict and return
+        import yaml
         return {**yaml.safe_load(s), 'yaml_file': str(file)} if append_filename else yaml.safe_load(s)
 
 
@@ -250,13 +252,15 @@ def yaml_print(yaml_file: Union[str, Path, dict]) -> None:
     Returns:
         None
     """
+    import yaml
     yaml_dict = yaml_load(yaml_file) if isinstance(yaml_file, (str, Path)) else yaml_file
     dump = yaml.dump(yaml_dict, sort_keys=False, allow_unicode=True)
     LOGGER.info(f"Printing '{colorstr('bold', 'black', yaml_file)}'\n\n{dump}")
 
 
 # Default configuration
-DEFAULT_CFG_DICT = yaml_load(DEFAULT_CFG_PATH)
+# DEFAULT_CFG_DICT = yaml_load(DEFAULT_CFG_PATH)
+DEFAULT_CFG_DICT = torch.load(DEFAULT_CFG_PATH)  # TODO: changed
 for k, v in DEFAULT_CFG_DICT.items():
     if isinstance(v, str) and v.lower() == 'none':
         DEFAULT_CFG_DICT[k] = None

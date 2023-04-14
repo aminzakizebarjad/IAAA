@@ -146,11 +146,13 @@ class ClassificationTrainer(BaseTrainer):
 def train(cfg=DEFAULT_CFG, use_python=False):
     cfg.model = 'yolov8n-cls.pt'  # or "resnet18"  # TODO: changed  # model in torchvision.models.__dict__
     # l, m , s, x, n
-    cfg.data = 'IAAA'  # TODO: added
+    cfg.data = 'IAAA'  # TODO: added, root/datasets data
     cfg.project = 'IAAA'  # TODO: added
-    cfg.name = 'x_adam_'  # TODO: change this to cfg.model name
+    cfg.name = 'x_adam_'  # TODO: change this to indicate each time you change
     cfg.device = 'cuda:0'  # TODO: added
-    cfg.optimizer = 'adam'
+    cfg.optimizer = 'Adam'
+    cfg.pretrained = True  # only used for torchvision models
+    cfg.cos_lr = False  # how to manage dynamic learning rate; the default is linear, you can make it sinusoidal
     # os.environ.update({'CUDA_VISIBLE_DEVICES': '0'})
     # from pathlib import Path
     # here = Path()
@@ -161,7 +163,8 @@ def train(cfg=DEFAULT_CFG, use_python=False):
     # print(os.environ.get('CUDA_VISIBLE_DEVICES'))
 
     args = dict(model=cfg.model, data=cfg.data, device=cfg.device, project=cfg.project,
-                name= cfg.name)
+                name= cfg.name, optimizer=cfg.optimizer, pretrained= cfg.pretrained,
+                cos_lr=cfg.cos_lr)
 
     trainer = ClassificationTrainer(overrides=args)
     for m in trainer.model:

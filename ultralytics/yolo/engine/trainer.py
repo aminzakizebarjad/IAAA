@@ -100,12 +100,13 @@ class BaseTrainer:
         if RANK in (-1, 0):
             self.wdir.mkdir(parents=True, exist_ok=True)  # make dir
             self.args.save_dir = str(self.save_dir)
-            yaml_save(self.save_dir / 'args.yaml', vars(self.args))  # save run args
+            # yaml_save(self.save_dir / 'args.yaml', vars(self.args))  # save run args  # TODO: commented
         self.last, self.best = self.wdir / 'last.pt', self.wdir / 'best.pt'  # checkpoint paths
         self.save_period = self.args.save_period
 
         self.batch_size = self.args.batch
         self.epochs = self.args.epochs
+        # self.epochs = 10
         self.start_epoch = 0
         if RANK == -1:
             print_args(vars(self.args))
