@@ -1,7 +1,7 @@
 # Ultralytics YOLO 🚀, GPL-3.0 license
 import os
 import sys
-
+sys.path.append('D:\IAAA')
 import torch
 import torchvision
 
