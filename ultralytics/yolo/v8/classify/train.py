@@ -148,7 +148,7 @@ def train(cfg=DEFAULT_CFG, use_python=False):
     cfg.model = 'yolov8n-cls.pt'  # or "resnet18"  # TODO: changed  # model in torchvision.models.__dict__
     # l, m , s, x, n
     cfg.data = 'IAAA'  # TODO: added, root/datasets data
-    cfg.project = 'IAAA'  # TODO: added
+    cfg.project = 'SAVE_DIR'  # TODO: added
     cfg.name = 'x_adam_'  # TODO: change this to indicate each time you change
     cfg.device = 'cuda:0'  # TODO: added
     cfg.optimizer = 'Adam'

@@ -76,9 +76,9 @@ another thing that you must notice is that change the cfg.name where is the dire
 for example if you use resnet18 and ADAM and cosine scheduler then name you directory as :
 cfg.name = 'resnet18_adam_cosine'  
 10. now you can start training by below command:  
-> $`python3 ultralytics/yolo/v8/trai.py`  
+> $`python3 ultralytics/yolo/v8/classify/train.py`  
 
-after training you must have a file named best.pt in the directory: IAAA/cfg.name/weights/best.pt  
+after training you must have a file named best.pt in the directory: SAVE_DIR/cfg.name/weights/best.pt  
 >that is it for now, below is for submitting you model in the IAAA competition dashboard, which is out of training procedure concern,
 we will come back to them in the future.  
 10. change submission.py model to best.py that is trained in advance
