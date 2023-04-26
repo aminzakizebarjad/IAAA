@@ -186,7 +186,7 @@ class ClassificationPredictor:
                     else:
                         lb_indx = 0
 
-                    dt1 = pandas.DataFrame({'path': Path(path_).name, 'is_patient': [lb_indx]})
+                    dt1 = pandas.DataFrame({'path': Path(path_).stem, 'is_patient': [lb_indx]})  # .name changed to .stem
 
                     dt = pandas.concat([dt, dt1])
 
