@@ -81,7 +81,7 @@ you can also change optimizer, you can set cfg.optimizer = 'Adam' or 'SGD'
 another option is to change learning rate scheduler technic, you can set cfg.cos_lr = False for linear scheduler or you can set cfg.cos_lr = True for cosines scheduler  
 #### *change directory to save results*
 another thing that you must notice is that change the cfg.name where is the directory that the training results are saved,
-for example if you use resnet18 and ADAM and cosine scheduler then name you directory as :
+for example if you use resnet18 and ADAM and cosine scheduler then name your directory as :
 cfg.name = 'resnet18_adam_cosine'  
 #### *start training*
 10. now you can start training by below command:  
@@ -116,7 +116,7 @@ for manging your account you must first get authenticated.
 > $ `curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg`   
 > $ `sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg`   
 > $ `echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null`  
-> $ `sudo apt update`
+> $ `sudo apt update`  
 > $ `sudo apt install gh -y`  
 
 
@@ -156,4 +156,4 @@ now you are good to go; you can run any of git commands including:
 > $ `git pull ...`  
 > $ `git push ...`  
 
-to manage you repositories.
+to manage your repositories.
