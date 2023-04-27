@@ -16,7 +16,7 @@ logging into github account with token
 change directory into repository
 > $ `cd IAAA`
 3. we must download the dataset 
- do either below commands; each one that is faster
+ do either curl or wget commands; either one that is faster
 > $ `curl https://iaaa.ai/iaaa-data/iaaa-data-v3.zip -o iaaa-data-v3.zip`  
  $ `curl https://iaaa.ai/iaaa-data/iaaa-data_v2.zip -o iaaa-data_v2.zip`  
 
@@ -24,7 +24,7 @@ change directory into repository
  >$ `wget https://iaaa.ai/iaaa-data/iaaa-data-v3.zip`  
  $ `wget https://iaaa.ai/iaaa-data/iaaa-data_v2.zip`
  
-in my system **wget** was more speedy, but FYI **curl** is safer
+in my system **wget** was more speedy, but FYI **curl** is safer  
 4. do some work on files:  (if unzip is not installed then install it with apt)  
  >$ `mkdir iaaa-data-v3`  
  $ `mkdir iaaa-data-v2`  
@@ -32,7 +32,7 @@ in my system **wget** was more speedy, but FYI **curl** is safer
  
  enter your UBUNTU admin password if needed
  >$ `unzip -q iaaa-data-v3.zip -d iaaa-data-v3/`    
- $ `unzip -q iaaa-data_v2.zip d iaaa-data-v2/`    
+ $ `unzip -q iaaa-data_v2.zip -d iaaa-data-v2/`    
  $ `mv iaaa-data-v2/content/iaaa-data/* iaaa-data-v2/ ` 
 
 5. create virtual environment  
@@ -65,7 +65,7 @@ enter your ubuntu admin password if needed
 if you go to the directory ultralytics/yolo/v8/classify and open train.py you can see some lines as below:  
 ![](./cfg.PNG)  
 for changing configurations of your training procedure you can change one or more cfgs' in the train.py
-*changing model to train:*  
+#### *changing model to train:*  
 you can set cfg.model = 'yolov8n-cls.pt' or 'yolov8s-cls.pt' or 'yolov8m-cls.pt' or 'yolov8l-cls.pt' or 'yolov8x-cls.pt'
 or you can set it to either models in torchvision. you can find them [here](https://pytorch.org/vision/stable/models.html)  
 you can see below overall models:  
@@ -73,17 +73,22 @@ you can see below overall models:
 click on any of them, I choose resnet my self:  
 ![](./resnet.png)    
 you can put cfg.model = 'resnet18' or 'resnet34' or 'resnet50' or 'resnet101' or 'resnet152'  
-you can do this for either of torchvision overall models  
+you can do this for either of torchvision overall models   
+**hint:** if you are using any of torchvision models you must keep cfg.pretrained = True   
+#### *changing optimizer to train*
 you can also change optimizer, you can set cfg.optimizer = 'Adam' or 'SGD'  
+#### *changing learning rate scheduler to train*
 another option is to change learning rate scheduler technic, you can set cfg.cos_lr = False for linear scheduler or you can set cfg.cos_lr = True for cosines scheduler  
-**hint:** if you are using any of torchvision models you must keep cfg.pretrained = True  
+#### *change directory to save results*
 another thing that you must notice is that change the cfg.name where is the directory that the training results are saved,
 for example if you use resnet18 and ADAM and cosine scheduler then name you directory as :
 cfg.name = 'resnet18_adam_cosine'  
+#### *start training*
 10. now you can start training by below command:  
 > $`python3 ultralytics/yolo/v8/classify/train.py`  
 
-after training you must have a file named best.pt in the directory: SAVE_DIR/cfg.name/weights/best.pt  
+this can take long time. 
+after training, you must have a file named best.pt in the directory: SAVE_DIR/cfg.name/weights/best.pt  
 >that is it for now, below is for submitting you model in the IAAA competition dashboard, which is out of training procedure concern,
 we will come back to them in the future.  
 >
